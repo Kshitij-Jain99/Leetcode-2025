@@ -1,4 +1,4 @@
-//1422. Maximum Score After Splitting a String.
+//1422. Maximum Score After Splitting a String
 // Approach B: Optimized
 //TC= O(N+N) = O(N) , SC = O(1)
 
