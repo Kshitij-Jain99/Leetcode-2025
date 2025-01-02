@@ -1,4 +1,4 @@
-//1422. Maximum Score After Splitting a String.
+//1422. Maximum Score After Splitting a String..
 // Approach A: Brute Force
 //TC= O(N*(N-1)) = O(N^2) , SC =O(1)
 /*
