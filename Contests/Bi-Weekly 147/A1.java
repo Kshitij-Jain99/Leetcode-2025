@@ -1,4 +1,4 @@
-//3407. Substring Matching Pattern
+//3407. Substring Matching Pattern.
 // Approach A: Brute force
 // TC=O(n*n*(m1 + m2), SC = O(m)-> s1 and s2
 /*
