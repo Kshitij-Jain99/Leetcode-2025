@@ -1,4 +1,4 @@
-//3407. Substring Matching Pattern
+//3407. Substring Matching Pattern.
 // Approach B: Optimized(BM and KMP internally), built- in fxn
 // TC=O(n + m), SC = O(m)
 /*
