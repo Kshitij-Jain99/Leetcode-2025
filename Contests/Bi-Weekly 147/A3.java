@@ -1,4 +1,4 @@
-//3407. Substring Matching Pattern
+//3407. Substring Matching Pattern.
 // Approach C: Better than B
 // TC=O(n + m), SC = O(m)
 
