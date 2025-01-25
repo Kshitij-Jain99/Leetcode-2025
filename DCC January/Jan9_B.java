@@ -1,4 +1,4 @@
-//2185. Counting Words With a Given Prefix (Modified)
+//2185. Counting Words With a Given Prefix (Modified).
 //Approach B: Trie
 // TC = O(NK + QK)   , SC = O(N.K)
 // If we are given with String prefix[] instead of 1 prefix, then:
