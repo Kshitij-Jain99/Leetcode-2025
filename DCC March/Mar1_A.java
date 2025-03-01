@@ -1,4 +1,4 @@
-//2460. Apply Operations to an Array
+//2460. Apply Operations to an Array.
 // Appraoch A: Naive Appraoch: Extra array used
 // TC = O(N), SC = O(N)
 public class Mar1_A {
