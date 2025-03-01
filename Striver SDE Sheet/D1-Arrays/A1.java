@@ -21,7 +21,7 @@ public class A1 {
         //set all non-zero elements as -1 in the col j
         for(int i =0; i<n; i++){
             if(matrix.get(i).get(j) != 0){
-                matrix.get(i).set(j, -1);
+                matrix.get(j).set(i, -1);
             }
         }
     }
