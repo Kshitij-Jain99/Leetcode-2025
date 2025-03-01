@@ -1,4 +1,4 @@
-//2460. Apply Operations to an Array
+//2460. Apply Operations to an Array.
 // Appraoch B: Optimized Two pointers: In-place
 // TC = O(N), SC = O(1)
 
