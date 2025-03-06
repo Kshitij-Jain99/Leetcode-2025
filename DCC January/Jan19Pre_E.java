@@ -1,4 +1,4 @@
-//42. Trapping Rain Water
+//42. Trapping Rain Water.
 // Approach E: Monotonic Stack(deque as stack):Better  
 //TC = O(N),  SC = O(N)
 /*
