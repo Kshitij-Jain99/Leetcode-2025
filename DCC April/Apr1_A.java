@@ -1,28 +1,29 @@
 //2140. Solving Questions With Brainpower
-// Appraoch-A:
-// TC = O(), SC = O()
+// Appraoch-A: Top-Down DP
+// TC = O(N), SC = O(N) where N is the number of questions
 import java.util.Arrays;
-class Apr1_A {
-    public long mostPoints(int[][] arr) {
-        long dp [] = new long [arr.length];
-		Arrays.fill(dp, -1);
-		
-		long value = check(arr, dp, 0);
-		return value;
-	}
 
-	private static long check(int[][] arr, long[] dp, int ind) {
-		if(ind >= arr.length)
-		{
+class Apr1_A{
+	private long findMaxPoints(int[][] questions, int pos, long[] mem){
+		if(pos >= questions.length){ //out of bounds
 			return 0;
 		}
-		if(dp[ind] != -1)
-		{
-			return dp[ind];
+		if(mem[pos] != -1){//Memoization Check
+			return mem[pos]; //subproblem already solved
 		}
-		long a = arr[ind][0] + check(arr, dp, ind + arr[ind][1] + 1);
-		long b = check(arr, dp, ind + 1);
-		return dp[ind] =(Math.max(a, b));
+
+		long exclude = findMaxPoints(questions, pos+1, mem);
+		long include = questions[pos][0] + findMaxPoints(questions, pos + questions[pos][1] + 1,mem);
+		mem[pos] = Math.max(exclude, include); //store the result in memoization array
+		return mem[pos]; 
+
+	}
+
+	public long mostPoints(int[][] questions){  //Main fxn
+		int n = questions.length;
+		long[] mem = new long[n];  //Space for memoization
+		Arrays.fill(mem,-1);
+		return findMaxPoints(questions,0, mem);
 	}
 }
 
