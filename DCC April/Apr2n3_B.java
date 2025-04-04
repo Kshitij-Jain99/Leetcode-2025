@@ -2,7 +2,7 @@
 //Approach-B: Optimized Greedy with Dynamic Tracking
 // TC = O(n), SC = O(1)
 
-public class Apr2_B {
+public class Apr2n3_B {
     public long maximumTripletValue(int[] nums) {
         int n = nums.length;
         long maxDiff = 0;
