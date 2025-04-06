@@ -13,7 +13,7 @@ public class C1 {
                 break;
             }
         }
-        // brak point not found, reverse the array
+        // break point not found, reverse the array
         if(ind == -1){
             Collections.reverse(A);
             return A;
@@ -46,3 +46,48 @@ public class C1 {
 
     }
 }
+/*
+ class Solution {
+    public void nextPermutation(int[] nums) {
+        int n = nums.length;
+
+        //1: Longer prefix match->Finding break point
+        int idx = -1; //break point
+        for(int i = n-2; i>=0; i--){
+            if(nums[i] < nums[i+1]){
+                idx = i;
+                break;
+            }
+        }
+
+       //2: If break point dne -> we are at last permutation
+       if(idx == -1){
+        reverseSubarray(nums,0,n-1);
+        return;
+       }
+
+       //3: Find NGE and swap it
+       for(int i = n-1; i>idx; i--){
+        if(nums[i] > nums[idx]){
+            int tmp = nums[i];
+            nums[i] = nums[idx];
+            nums[idx] = tmp;
+            break;
+        }
+       }
+
+       //4: Reverse the rem. half
+       reverseSubarray(nums, idx+1, n-1);
+
+    }
+      public static void reverseSubarray(int[] nums, int start, int end) {
+        while (start < end) {
+        int temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+        start++;
+        end--;
+    }
+  }
+}
+ */
