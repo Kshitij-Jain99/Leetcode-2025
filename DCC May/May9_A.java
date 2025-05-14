@@ -5,7 +5,6 @@
  1. Generate all unique permutations of its characters.
  2. For each permutation, compute the sum of digits at even indices (0-based) and sum of digits at odd indices.
  3. Count how many permutations have these two sums equal.
- 4. 
  */
 import java.util.Arrays;
 import java.util.HashSet;
