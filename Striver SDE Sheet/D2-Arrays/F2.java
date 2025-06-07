@@ -16,7 +16,7 @@ public class F2 {
          int cnt = 0; //Modification 1: cnt variable to count the pairs:
 
          //storing elements in the temporary array in a sorted manner//
-         while(left <= mid && righ <= high){
+         while(left <= mid && right <= high){
             if(arr[left] <= arr[right]){
                 temp.add(arr[left]);
                 left++;
