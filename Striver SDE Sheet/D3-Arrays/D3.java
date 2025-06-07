@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class D3 {
-public class tUf {
     public static List<Integer> majorityElement(int []v) {
         int n = v.length; //size of the array
 
@@ -50,4 +49,4 @@ public class tUf {
         return ls;
     }
  }
-}
+
