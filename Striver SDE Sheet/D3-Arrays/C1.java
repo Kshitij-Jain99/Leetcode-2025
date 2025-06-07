@@ -5,14 +5,14 @@
 public class C1 {
     public static int majorityElement(int[] v){
         int n = v.length;
-        int count = 0;
 
-        for(int i = 0; i<n-1; i++){
-            for(int j = i; j<n; j++){
+        for(int i = 0; i<n; i++){
+             int count = 0; // Reset count for each element
+            for(int j = 0; j<n; j++){
                 if(v[i] == v[j]) count++;
             }
             if(count > n/2) return v[i];
         }
-        return 0;
+        return -1;
     }
 }
