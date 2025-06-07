@@ -1,6 +1,6 @@
 //Implement Pow(x,n) | X raised to the power N
 //Approach-2: Binary Exponentiation
-// TC = O(), SC = O()
+// TC = O(logN), SC = O(1)
 
 public class B2 {
     public static double myPow(double x, int n) {
