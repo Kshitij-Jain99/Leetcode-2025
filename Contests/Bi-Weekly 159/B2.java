@@ -1,5 +1,5 @@
 //Q2. Find Maximum Area of a Triangle
-// Approach-2: Using Maps
+// Approach-2: Using Maps + Arrays
 // TC = O(4*N), SC = O(N)
 /*
  1. Two points form a vertical side (same x, different y), or vise versa
