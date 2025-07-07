@@ -4,7 +4,7 @@ import java.util.*;
 public class A{
 
     // Approach-1:Filter + Custom Sort
-    // TC = O(), SC = O()
+    // TC = O(n.m + k.m.logk), SC = O(k)
 /*
  1. Valid coupon:
     a. Coupon[i] != "" i.e. non null
@@ -41,7 +41,7 @@ public List<String> validateCoupons(String[] code, String[] businessLine, boolea
     }
 
     //Sort based on businessLine order then lexographical order
-    Collections.sort(validCoupons, (a,b) -> {
+    Collections.sort(validCoupons, (a,b) -> {  //O(K. LogK .M)
         int cmp = businessOrder.get(a.businessLine) - businessOrder.get(b.businessLine); //comparator
         if(cmp == 0) return a.code.compareTo(b.code);  //alphabetical sorting if they belong to same businessLine
         return cmp;
@@ -54,7 +54,7 @@ public List<String> validateCoupons(String[] code, String[] businessLine, boolea
     return result;
    }
 
-   private boolean isValid(String code, String businessLine, boolean isActive, Map<String, Integer> businessOrder){
+   private boolean isValid(String code, String businessLine, boolean isActive, Map<String, Integer> businessOrder){  //O(N*M)
      if(code == null || code.isEmpty()) return false;
      if(!code.matches("[a-zA-Z0-9_]+")) return false;  
      if(!businessOrder.containsKey(businessLine)) return false;
