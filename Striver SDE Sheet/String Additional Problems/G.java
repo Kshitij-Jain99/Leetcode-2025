@@ -75,6 +75,8 @@ public class G{
         b. Check for duplicates: Visited or not in wordList
      6. If a generated word exists in the opposite set → path found.
      7. Use a visited set to avoid revisiting.
+     8. Termination condition for bidirectional search is finding a word which is already been seen by the parallel search.
+     9. The shortest path is sum of levels of the meet point node from both ends.
      */
       public int ladderLength2(String beginWord, String endWord, List<String> wordList) {
         Set<String> wordSet = new HashSet<>(wordList);
@@ -119,4 +121,194 @@ public class G{
 
         return 0;        
     }
+
+
+
+    /*----------------------------------------------------------------------------------------------------- */
+
+    //126. Word Ladder II: https://leetcode.com/problems/word-ladder-ii/description/
+
+    //Approach-1{TLE}: BFS with path tracking
+    // TC = O(N*L + K*L), SC = O(N*L + K*L)
+    /* TC:
+       a. Main BFS: 
+          In the worst case, we try to transform every word at every step.
+          For a word of length L and dictionary size N:
+          1 word -> 26*L new words
+          Processing each word once per BFS level
+          So, upper bound = O(N * L * 26) = O(N * L)
+       b. Path Tracking:
+          Every time we extend a path, we create a new ArrayList.
+          Each path can be up to length N in the worst case (but realistically ≤ shortest path length).
+          If there are K shortest sequences, path copying cost = O(K × L).
+       where
+       N = number of words in the wordList
+       L = word length
+       K = number of shortest transformation sequences found
+       
+       K can be large in cases with many equivalent paths.
+
+       The worst-case time and space complexities cannot be pinned to a constant bound because the number of possible sequences (K) depends on the input.
+       Since K (the number of shortest paths) is part of the output, the algorithm is output-sensitive.
+     */
+    /*
+     1. Intuition for BFS: we go on replacing the characters one by one which seems just like we’re moving level-wise in order to reach the destination i.e. the targetWord.
+     2. Contrary to the previous problem, here we do not stop the traversal on the first occurrence of the targetWord, but rather continue it for as many occurrences of the word as possible as we need all the shortest possible sequences in order to reach the destination word.
+     3. The only trick here is that we do not have to delete a particular word immediately from the wordList even if during the replacement of characters it matches with the transformed word. 
+        Instead, we delete it after the traversal for a particular level when completed which allows us to explore all possible paths. This allows us to discover multiple sequences in order to reach the targetWord involving similar words. 
+     4. 
+     */
+ public List<List<String>> findSequences(String startWord, String targetWord, String[] wordList) {
+
+        Set<String> dict = new HashSet<>(Arrays.asList(wordList)); //store the elements present in the word list to carry out the search and delete operations in O(1) time. 
+
+        // Early exit if targetWord not in dict
+        if (!dict.contains(targetWord)) {
+            return new ArrayList<>();
+        }
+
+        Queue<List<String>> queue = new LinkedList<>(); //store the level-wise formed sequences(List of strings, which will be representing the path till now.)
+        List<String> startPath = new ArrayList<>();
+        startPath.add(startWord);
+        queue.add(startPath);
+
+        Set<String> usedOnLevel = new HashSet<>();  //store the words which are currently being used for transformation on a particular level
+        usedOnLevel.add(startWord);
+
+        int level = 1;
+        List<List<String>> ans = new ArrayList<>();
+
+        while (!queue.isEmpty()) {
+            List<String> path = queue.poll();
+
+            // If we reached a new level, remove used words
+            if (path.size() > level) {
+                for (String word : usedOnLevel) {
+                    dict.remove(word);
+                }
+                usedOnLevel.clear();
+                level = path.size();
+            }
+
+            String lastWord = path.get(path.size() - 1);
+
+            // If target found, add path to results
+            if (lastWord.equals(targetWord)) {
+                if (ans.isEmpty()) {
+                    ans.add(path);
+                } else if (ans.get(0).size() == path.size()) {
+                    ans.add(path);
+                }
+            }
+
+            // Generate all possible one-letter transformations
+            char[] wordArr = lastWord.toCharArray();
+            for (int i = 0; i < wordArr.length; i++) {
+                char originalChar = wordArr[i];
+                for (char c = 'a'; c <= 'z'; c++) {
+                    if (c == originalChar) continue; // skip same char
+                    wordArr[i] = c;
+                    String newWord = new String(wordArr);
+
+                    if (dict.contains(newWord)) {
+                        List<String> newPath = new ArrayList<>(path);
+                        newPath.add(newWord);
+                        queue.add(newPath);
+                        usedOnLevel.add(newWord);
+                    }
+                }
+                wordArr[i] = originalChar; // restore
+            }
+        }
+
+        // Sort results lexicographically
+        ans.sort((a, b) -> {
+            for (int i = 0; i < Math.min(a.size(), b.size()); i++) {
+                int cmp = a.get(i).compareTo(b.get(i));
+                if (cmp != 0) return cmp;
+            }
+            return Integer.compare(a.size(), b.size());
+        });
+
+        return ans;
+    }
+
+
+    //Appraoch-2: BFS + Backtracking: https://leetcode.com/problems/word-ladder-ii/solutions/7121152/easy-solution-bfs-dfs-o-n-m-cpp-java-python/
+    // TC = O(), SC = O()
+   String b;
+    Map<String,Integer> mpp = new HashMap<>();
+    List<List<String>> ans = new ArrayList<>();
+
+    private void dfs(String word, List<String> seq) {
+        if (word.equals(b)) {
+            List<String> temp = new ArrayList<>(seq);
+            Collections.reverse(temp);
+            ans.add(temp);
+            return;
+        }
+        int steps = mpp.get(word);
+        char[] arr = word.toCharArray();
+        for (int i = 0; i < arr.length; i++) {
+            char org = arr[i];
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                arr[i] = ch;
+                String nxt = new String(arr);
+                if (mpp.containsKey(nxt) && mpp.get(nxt) + 1 == steps) {
+                    seq.add(nxt);
+                    dfs(nxt, seq);
+                    seq.remove(seq.size() - 1);
+                }
+            }
+            arr[i] = org;
+        }
+    }
+
+    public List<List<String>> findLadders(String st, String tar, List<String> wordList) {
+        Set<String> s = new HashSet<>(wordList);
+        if (st.equals(tar)) {
+            List<List<String>> res = new ArrayList<>();
+            res.add(Arrays.asList(st));
+            return res;
+        }
+        if (!s.contains(tar)) return new ArrayList<>();
+
+        Queue<String> q = new LinkedList<>();
+        q.add(st);
+        mpp.put(st, 1);
+        b = st;
+        boolean found = false;
+
+        while (!q.isEmpty() && !found) {
+            int sz = q.size();
+            for (int k = 0; k < sz; k++) {
+                String cur = q.poll();
+                int steps = mpp.get(cur);
+                char[] arr = cur.toCharArray();
+                for (int i = 0; i < arr.length; i++) {
+                    char org = arr[i];
+                    for (char ch = 'a'; ch <= 'z'; ch++) {
+                        arr[i] = ch;
+                        String nxt = new String(arr);
+                        if (s.contains(nxt) && !mpp.containsKey(nxt)) {
+                            mpp.put(nxt, steps + 1);
+                            if (nxt.equals(tar)) found = true;
+                            q.add(nxt);
+                        }
+                    }
+                    arr[i] = org;
+                }
+            }
+        }
+
+        if (mpp.containsKey(tar)) {
+            List<String> seq = new ArrayList<>();
+            seq.add(tar);
+            dfs(tar, seq);
+        }
+        return ans;
+    }
+
+    //Appraoch-3: BFS + Backtracking
+    // TC = O(), SC = O()
 }
