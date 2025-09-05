@@ -76,7 +76,7 @@ public class H{
         }
   }
 
-  //Appraoch-3: Divide and Conquer
+  //Appraoch-3: Divide and Conquer.
   //TC = O(4^n / sqrt(n)){upper bound of asymptote}, SC = O(n){recursion stack space}
   /* Intuition: Calatan Numbers
    1. Decomposing the problem into smaller subproblems: 
