@@ -88,7 +88,7 @@ public class H{
    4. This formulae matches the Catalan number sequence. 
       So, nth catalan number gives the number of valid parentheses combinations.
    5. A is a valid parenthesis sequence that is inside the first pair of parentheses.
-      B is a valid parenthesis sequence that comes after the first pair.
+      B is a valid parenthesis sequence that comes after the first pair
    6. To generate all combinations for n pairs, we allocate i pairs to form the inner sequence A, then the remaining n - 1 - i pairs must be used to form the outer sequence B  
    */
   public List<String> generateParenthesis3(int n) {
